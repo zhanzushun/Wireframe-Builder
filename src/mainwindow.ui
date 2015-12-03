@@ -1,0 +1,914 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Wireframe Builder</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#widgetButtonsArea {
+background-color: rgb(72, 72, 72);
+}
+
+</string>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>32</width>
+    <height>32</height>
+   </size>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="margin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QTabWidget" name="documentTabs">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Tab 1</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionClose"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave_as_PNG"/>
+    <addaction name="actionSave_as_PDF"/>
+    <addaction name="actionSave_as_XML"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionCut"/>
+    <addaction name="actionCopy"/>
+    <addaction name="actionPaste"/>
+    <addaction name="actionDelete"/>
+    <addaction name="separator"/>
+    <addaction name="actionSelectAll"/>
+    <addaction name="actionSelect_None"/>
+    <addaction name="separator"/>
+    <addaction name="actionGroup_Objects"/>
+    <addaction name="actionUngroup"/>
+    <addaction name="separator"/>
+    <addaction name="actionLock"/>
+    <addaction name="actionUnlock_All"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="actionAboutQt"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionShow_UI_Library"/>
+    <addaction name="actionShow_Paper"/>
+    <addaction name="separator"/>
+    <addaction name="actionZoom_In"/>
+    <addaction name="actionZoom_Out"/>
+    <addaction name="actionZoom_1_1"/>
+    <addaction name="actionZoom_To_Fit"/>
+    <addaction name="separator"/>
+    <addaction name="actionFull_Screen"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuView"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>File actions</string>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionNew"/>
+   <addaction name="actionOpen"/>
+   <addaction name="actionSave"/>
+   <addaction name="actionClose"/>
+   <addaction name="separator"/>
+  </widget>
+  <widget class="QDockWidget" name="dockUndoView">
+   <property name="windowTitle">
+    <string>Undo Stack</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="layoutUndoView">
+    <layout class="QVBoxLayout">
+     <property name="spacing">
+      <number>4</number>
+     </property>
+     <property name="margin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QUndoView" name="undoView" native="true">
+       <property name="styleSheet">
+        <string notr="true">font: 11pt &quot;Comic Sans MS&quot;;</string>
+       </property>
+       <property name="alternatingRowColors" stdset="0">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockDiagramLibrary">
+   <property name="minimumSize">
+    <size>
+     <width>270</width>
+     <height>160</height>
+    </size>
+   </property>
+   <property name="windowTitle">
+    <string>Diagram Library</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="layoutDiagramLibrary">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>2</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>2</number>
+     </property>
+     <item>
+      <widget class="QWidget" name="widgetButtonsArea" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+border: 2px solid #8f8f91;
+border-radius: 6px;
+color: rgb(218, 218, 218);
+padding: 3px 5px 3px 5px;
+}
+QPushButton:pressed {
+padding: 4px 4px 2px 6px;
+color:rgb(153,153,153);
+}
+QPushButton:flat {
+border: none;
+}
+QPushButton:default {
+border-color: navy;
+}
+QPushButton:hover {
+border-color: rgb(255, 255, 0);
+}
+QPushButton:checked {
+border-color: rgb(255, 255, 0);
+}
+</string>
+       </property>
+       <widget class="QPushButton" name="btnAll">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>25</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>All</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+        <property name="value" stdset="0">
+         <number>4095</number>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnBig">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>28</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Big</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+        <property name="value" stdset="0">
+         <number>1</number>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnButtons">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>51</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Buttons</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+        <property name="value" stdset="0">
+         <number>2</number>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnCommon">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>55</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Common</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+        <property name="value" stdset="0">
+         <number>4</number>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnContainers">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>66</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Containers</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+        <property name="value" stdset="0">
+         <number>8</number>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnLayout">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>47</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Layout</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+        <property name="value" stdset="0">
+         <number>16</number>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnMarkup">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>49</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Markup</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+        <property name="value" stdset="0">
+         <number>32</number>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnMedia">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>42</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Media</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+        <property name="value" stdset="0">
+         <number>64</number>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnText">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>35</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Text</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+        <property name="value" stdset="0">
+         <number>128</number>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnIPhone">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>46</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>iPhone</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+        <property name="value" stdset="0">
+         <number>256</number>
+        </property>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <widget class="DiagramLibraryView" name="diagramLibraryView">
+       <property name="styleSheet">
+        <string notr="true">QListView::item {
+     margin: 2px;
+     border: 1px solid;
+     border-radius: 5px;
+	border-color: rgb(170, 170, 255);
+}
+QListView::item:alternate {
+     background: #EEEEEE;
+ }
+QListView::item:selected {
+     border: 1px solid #6a6ea9;
+ }
+QListView::item:selected:!active {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ABAFE5, stop: 1 #8588B2);
+ }
+QListView::item:selected:active {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #6a6ea9, stop: 1 #888dd9);
+ }
+QListView::item:hover {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FAFBFE, stop: 1 #DCDEF1);
+}</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="resizeMode">
+        <enum>QListView::Adjust</enum>
+       </property>
+       <property name="viewMode">
+        <enum>QListView::IconMode</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidgetNeverShow">
+   <property name="styleSheet">
+    <string notr="true">QFrame{
+border-image: url(:/icons/border.png) 8 8 8 8 stretch; 
+border-width: 4px;
+}
+#lineSample {
+border-image: url(:/icons/border.png) 8 8 8 8 stretch; 
+border-width: 4px 0 0 0;
+}
+QFrame#frameBrowserWindow{
+border-width: 76px 92px 28px 157px;
+border-image: url(:/images/browserwindow.png) 76 92 28 157  stretch stretch; 
+}
+QScrollBar:vertical {
+      border: 2px solid grey;
+      background: #32CC99;
+      width: 15px;
+      margin: 22px 0 22px 0;
+  }
+QScrollBar::handle:vertical {
+      background: white;
+      min-height: 20px;
+  }
+QScrollBar::add-line:vertical {
+      border: 2px solid grey;
+      background: #32CC99;
+      height: 20px;
+      subcontrol-position: bottom;
+      subcontrol-origin: margin;
+  }
+QScrollBar::sub-line:vertical {
+      border: 2px solid grey;
+      background: #32CC99;
+      height: 20px;
+      subcontrol-position: top;
+      subcontrol-origin: margin;
+  }
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+      border: 2px solid grey;
+      width: 3px;
+      height: 3px;
+      background: white;
+  }
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+      background: none;
+  }
+QScrollBar:horizontal {
+     border: 2px solid green;
+     background: cyan;
+     height: 15px;
+     margin: 0px 40px 0 0px;
+ }
+QScrollBar::handle:horizontal {
+     background: gray;
+     min-width: 20px;
+ }
+QScrollBar::add-line:horizontal {
+     background: blue;
+     width: 16px;
+     subcontrol-position: right;
+     subcontrol-origin: margin;
+     border: 2px solid black;
+ }
+QScrollBar::sub-line:horizontal {
+     background: magenta;
+     width: 16px;
+     subcontrol-position: top right;
+     subcontrol-origin: margin;
+     border: 2px solid black;
+     position: absolute;
+     right: 20px;
+ }
+QScrollBar:left-arrow:horizontal, QScrollBar::right-arrow:horizontal {
+     width: 3px;
+     height: 3px;
+     background: pink;
+ }
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+     background: none;
+ }
+QFrame#buttonSample {
+border-width: 2px 5px 4px 2px;
+border-image: url(:/images/buttonborder.png) 2 5 4 2  stretch stretch; 
+}</string>
+   </property>
+   <property name="features">
+    <set>QDockWidget::NoDockWidgetFeatures</set>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <widget class="QCheckBox" name="checkBoxSample">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>0</y>
+       <width>71</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>CheckBox</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButtonSample">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>20</y>
+       <width>82</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>RadioButton</string>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frameSample">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>0</y>
+       <width>51</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+    <widget class="QScrollBar" name="horizontalScrollBarSample">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>40</y>
+       <width>160</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QScrollBar" name="verticalScrollBarSample">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>0</y>
+       <width>16</width>
+       <height>160</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+    <widget class="QProgressBar" name="progressBar">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>60</y>
+       <width>118</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="value">
+      <number>24</number>
+     </property>
+    </widget>
+    <widget class="Line" name="lineSample">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>30</y>
+       <width>118</width>
+       <height>3</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="vlineSample">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>0</y>
+       <width>3</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frameBrowserWindow">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>90</y>
+       <width>231</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+    <widget class="QFrame" name="buttonSample">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>61</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="qmockups.qrc">
+     <normaloff>:/icons/fileopen.png</normaloff>:/icons/fileopen.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Open</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="icon">
+    <iconset resource="qmockups.qrc">
+     <normaloff>:/icons/fileclose.png</normaloff>:/icons/fileclose.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Close</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="icon">
+    <iconset resource="qmockups.qrc">
+     <normaloff>:/icons/filenew.png</normaloff>:/icons/filenew.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;New</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset resource="qmockups.qrc">
+     <normaloff>:/icons/filesave.png</normaloff>:/icons/filesave.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Save</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="icon">
+    <iconset resource="qmockups.qrc">
+     <normaloff>:/icons/exit.png</normaloff>:/icons/exit.png</iconset>
+   </property>
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="icon">
+    <iconset resource="qmockups.qrc">
+     <normaloff>:/icons/remove.png</normaloff>:/icons/remove.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove Object</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove Object</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionAboutQt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+  </action>
+  <action name="actionSave_as_PNG">
+   <property name="text">
+    <string>Save as PNG</string>
+   </property>
+  </action>
+  <action name="actionSave_as_PDF">
+   <property name="text">
+    <string>Save as PDF</string>
+   </property>
+  </action>
+  <action name="actionSave_as_XML">
+   <property name="text">
+    <string>Save as XML</string>
+   </property>
+  </action>
+  <action name="actionCut">
+   <property name="text">
+    <string>Cut</string>
+   </property>
+  </action>
+  <action name="actionCopy">
+   <property name="text">
+    <string>Copy</string>
+   </property>
+  </action>
+  <action name="actionPaste">
+   <property name="text">
+    <string>Paste</string>
+   </property>
+  </action>
+  <action name="actionSelectAll">
+   <property name="text">
+    <string>Select All</string>
+   </property>
+  </action>
+  <action name="actionSelect_None">
+   <property name="text">
+    <string>Select None</string>
+   </property>
+  </action>
+  <action name="actionGroup_Objects">
+   <property name="text">
+    <string>Group</string>
+   </property>
+  </action>
+  <action name="actionUngroup">
+   <property name="text">
+    <string>Ungroup</string>
+   </property>
+  </action>
+  <action name="actionLock">
+   <property name="text">
+    <string>Lock</string>
+   </property>
+  </action>
+  <action name="actionUnlock_All">
+   <property name="text">
+    <string>Unlock All</string>
+   </property>
+  </action>
+  <action name="actionShow_UI_Library">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show UI Library</string>
+   </property>
+  </action>
+  <action name="actionShow_Paper">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Grid</string>
+   </property>
+  </action>
+  <action name="actionZoom_In">
+   <property name="text">
+    <string>Zoom In</string>
+   </property>
+  </action>
+  <action name="actionZoom_Out">
+   <property name="text">
+    <string>Zoom Out</string>
+   </property>
+  </action>
+  <action name="actionZoom_1_1">
+   <property name="text">
+    <string>Zoom 1:1</string>
+   </property>
+  </action>
+  <action name="actionZoom_To_Fit">
+   <property name="text">
+    <string>Zoom To Fit</string>
+   </property>
+  </action>
+  <action name="actionFull_Screen">
+   <property name="text">
+    <string>Full Screen</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QUndoView</class>
+   <extends>QWidget</extends>
+   <header>qundoview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>DiagramLibraryView</class>
+   <extends>QListView</extends>
+   <header>document.hxx</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="qmockups.qrc"/>
+ </resources>
+ <connections/>
+</ui>
